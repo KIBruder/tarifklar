@@ -22,3 +22,10 @@
 .gas-calculator>p{font-size:13px;color:var(--muted);line-height:1.8;max-width:760px}
 #c24pp-gas-iframe{width:100%;min-width:0;min-height:320px;overflow:hidden}
 .gas-calculator .calculator-provider{font-size:10px;color:#8491a3;margin-top:14px}
+
+/* CHECK24 package holiday comparison calculator */
+.package-calculator{padding:38px 0 56px;border-bottom:1px solid var(--line);margin-bottom:52px}
+.package-calculator h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.8px;margin:12px 0}
+.package-calculator>p{font-size:13px;color:var(--muted);line-height:1.8;max-width:760px}
+#c24pp-package-iframe{width:100%;min-width:0;min-height:320px;overflow:hidden}
+.package-calculator .calculator-provider{font-size:10px;color:#8491a3;margin-top:14px}
