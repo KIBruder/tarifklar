@@ -21,4 +21,4 @@ Erster technischer Prototyp. Noch nicht veröffentlichungsreif.
 
 Es werden keine Sparbeträge garantiert. Tarifberechnung und Vertragsabschluss erfolgen bei den jeweiligen Partnern.
 
-<!-- Cloudflare Pages initial deployment trigger: 2026-11-26 -->
+<!-- Cloudflare Pages deployment trigger: 2026-11-26 -->
