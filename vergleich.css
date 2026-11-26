@@ -29,3 +29,7 @@
 .package-calculator>p{font-size:13px;color:var(--muted);line-height:1.8;max-width:760px}
 #c24pp-package-iframe{width:100%;min-width:0;min-height:320px;overflow:hidden}
 .package-calculator .calculator-provider{font-size:10px;color:#8491a3;margin-top:14px}
+
+/* C24 Bank partner page banner sizing */
+.ad-slot-bank-wide{width:min(100%,800px);margin:0 auto}
+.ad-slot-bank-wide img{display:block;width:100%;height:auto}
