@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tarifklar.pages.dev/sitemap.xml
