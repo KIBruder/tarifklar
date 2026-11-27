@@ -1,15 +1,25 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#087f5b"><title>Feedback-Verwaltung · TarifKlar"><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f8f6;color:#17231c;font:15px/1.55 -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif}.wrap{max-width:900px;margin:5vh auto;padding:20px}.card{background:#fff;border:1px solid #e0e9e2;border-radius:18px;padding:22px;margin-bottom:16px}h1{font-size:clamp(26px,5vw,36px);letter-spacing:-1px;margin:8px 0}h2{font-size:19px;margin:0 0 12px}.muted{color:#64736a}.field{display:block;width:100%;padding:13px;border:1px solid #d8e2da;border-radius:10px;margin:7px 0 14px;font:inherit}.btn{border:0;border-radius:10px;padding:11px 15px;background:#087f5b;color:#fff;font-weight:700;font:inherit;cursor:pointer}.btn.secondary{background:#eaf5ef;color:#155b3f}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.post{border-top:1px solid #e9eeea;padding:17px 0}.tag{font-size:12px;color:#087f5b;font-weight:700}.post p{white-space:pre-wrap;overflow-wrap:anywhere;color:#58655d}.post select{padding:9px;border:1px solid #d8e2da;border-radius:9px;background:white}.status{font-size:12px;color:#65736a}.hidden{display:none!important}.msg{color:#9b2c25;margin-top:10px}@media(max-width:600px){.wrap{padding:12px}.card{padding:17px}}
-</style></head><body><main class="wrap"><section class="card"><strong>TarifKlar · Verwaltung</strong><h1>Community-Moderation</h1><p class="muted">Adminzugang für Kibruder@outlook.de. Sitzung läuft nach zwei Stunden ab.</p><form id="login"><label for="email">Administrator-E-Mail</label><input class="field" id="email" type="email" autocomplete="username" value="Kibruder@outlook.de" required><label for="password">Admin-Passwort</label><input class="field" id="password" type="password" autocomplete="current-password" required><button class="btn" type="submit">Sicher anmelden</button><div id="loginMsg" class="msg" role="status"></div></form><div id="session" class="hidden"><div class="row"><strong id="who"></strong><button class="btn secondary" id="refresh">Aktualisieren</button><button class="btn secondary" id="logout">Abmelden</button></div></div></section><section id="board" class="card hidden"><h2>Eingereichte Beiträge</h2><p class="muted">Neue Beiträge bleiben unveröffentlicht, bis du sie freigibst.</p><div id="posts">Lade Beiträge …</div></section></main><script>
-const API="https://tarifklar-feedback-api.kibruder.workers.dev/api/admin",KEY="tarifklar_admin_session";
-const labels={idea:"Idee",wish:"Wunsch",criticism:"Kritik",bug:"Fehler",praise:"Lob"},statuses={new:"Neu",planned:"Geplant",in_progress:"In Arbeit",done:"Umgesetzt",declined:"Nicht geplant"};
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-async function call(path,options={}){const token=sessionStorage.getItem(KEY)||"",headers={"Content-Type":"application/json",...(options.headers||{})};if(token)headers.Authorization="Bearer "+token;const r=await fetch(API+path,{...options,headers});const d=await r.json();if(!r.ok)throw new Error(d.error||"Anfrage fehlgeschlagen.");return d;}
-function signedIn(){document.getElementById("login").classList.add("hidden");document.getElementById("session").classList.remove("hidden");document.getElementById("board").classList.remove("hidden");document.getElementById("who").textContent="Angemeldet: Kibruder@outlook.de";}
-async function load(){const box=document.getElementById("posts");box.textContent="Lade Beiträge …";try{const d=await call("/posts");if(!d.posts.length){box.textContent="Noch keine Beiträge eingereicht.";return;}box.innerHTML=d.posts.map(p=>'<article class="post" data-id="'+Number(p.id)+'"><div class="tag">'+esc(labels[p.category]||"Feedback")+' · #'+Number(p.id)+' · '+(p.is_public?"ÖFFENTLICH":"NICHT VERÖFFENTLICHT")+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(p.body)+'</p><div class="status">Eingereicht: '+esc(p.created_at)+' · Stimmen: '+Number(p.votes)+'</div><div class="row" style="margin-top:12px"><select class="statusSelect" aria-label="Status">'+Object.entries(statuses).map(([v,l])=>'<option value="'+v+'" '+(p.status===v?"selected":"")+'>'+l+'</option>').join("")+'</select><button class="btn" data-publish="'+(p.is_public?0:1)+'">'+(p.is_public?"Verbergen":"Veröffentlichen")+'</button><button class="btn secondary" data-save>Nur Status speichern</button></div></article>').join("");}catch(e){box.textContent=e.message;sessionStorage.removeItem(KEY);document.getElementById("login").classList.remove("hidden");document.getElementById("session").classList.add("hidden");document.getElementById("board").classList.add("hidden");}}
-document.getElementById("login").addEventListener("submit",async e=>{e.preventDefault();const msg=document.getElementById("loginMsg");msg.textContent="Anmeldung wird geprüft …";try{const d=await call("/login",{method:"POST",body:JSON.stringify({email:document.getElementById("email").value,password:document.getElementById("password").value})});sessionStorage.setItem(KEY,d.token);document.getElementById("password").value="";signedIn();msg.textContent="";await load();}catch(err){msg.textContent=err.message;}});
-document.getElementById("refresh").addEventListener("click",load);
-document.getElementById("logout").addEventListener("click",()=>{sessionStorage.removeItem(KEY);location.reload();});
-document.getElementById("posts").addEventListener("click",async e=>{const a=e.target.closest("[data-id]");if(!a)return;const pub=e.target.closest("[data-publish]"),save=e.target.closest("[data-save]");if(!pub&&!save)return;const b=pub||save;b.disabled=true;try{await call("/moderate",{method:"POST",body:JSON.stringify({id:Number(a.dataset.id),status:a.querySelector(".statusSelect").value,is_public:pub?pub.dataset.publish==="1":a.querySelector("[data-publish]").dataset.publish==="1"})});await load();}catch(err){alert(err.message);b.disabled=false;}});
-if(sessionStorage.getItem(KEY)){signedIn();load();}
-</script></body></html>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#087f5b">
+<title>Feedback-Verwaltung · TarifKlar</title>
+<style>
+*{box-sizing:border-box}html{min-height:100%;background:#f5f8f6}body{margin:0;min-height:100vh;background:#f5f8f6;color:#17231c;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(100% - 28px,760px);margin:36px auto}.card{background:#fff;border:1px solid #e0e9e2;border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(20,50,30,.05)}.brand{font-size:13px;font-weight:750;letter-spacing:.04em;color:#087f5b}h1{font-size:clamp(27px,6vw,38px);line-height:1.15;letter-spacing:-.04em;margin:12px 0}p{margin:12px 0;color:#526158}.notice{margin-top:22px;padding:16px;border-radius:12px;background:#fff7e6;border:1px solid #f2dfb4;color:#604719}.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}a{color:#087f5b;font-weight:650;text-decoration:none}a:focus-visible{outline:3px solid #79b99b;outline-offset:4px}.small{font-size:13px;color:#68766d;margin-top:24px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+<div class="brand">TARIFKLAR · VERWALTUNG</div>
+<h1>Community-Moderation</h1>
+<p>Dies ist der interne Verwaltungsbereich für das TarifKlar-Feedback.</p>
+<div class="notice"><strong>Moderation derzeit pausiert</strong><p>Die geschützte Administrator-Schnittstelle ist noch nicht vollständig eingerichtet. Deshalb sind Anmeldung, Freigabe und Statusänderungen aktuell deaktiviert. Eingereichte Beiträge bleiben unveröffentlicht.</p></div>
+<div class="links"><a href="/feedback.html">Zum öffentlichen Feedback-Board</a><a href="/">Zur Startseite</a></div>
+<p class="small">Dieser Bereich ist nicht öffentlich indexierbar. Bitte keine Zugangsdaten auf dieser Seite eingeben.</p>
+</section>
+</main>
+</body>
+</html>
