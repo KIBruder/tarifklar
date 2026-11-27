@@ -108,3 +108,12 @@ footer{font-size:13px;padding:28px}
 .strom-check-teaser p{font-size:14px;line-height:1.6;color:#5d6661;max-width:620px;margin:0}
 .strom-check-teaser>a{flex:0 0 auto;background:#087f5b;color:white;border-radius:12px;padding:14px 17px;font-size:13px;font-weight:750}
 @media(max-width:720px){.strom-check-teaser{display:block;padding:21px;margin:14px 0 38px}.strom-check-teaser h2{font-size:22px}.strom-check-teaser p{font-size:14px}.strom-check-teaser>a{display:block;text-align:center;margin-top:15px}}
+
+
+/* Cross-device touch and safe-area support */
+html{min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(72px + env(safe-area-inset-top))}
+body{min-height:100%;overscroll-behavior-y:contain}
+a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #087f5b;outline-offset:3px}
+@media(max-width:720px){.top{padding-top:env(safe-area-inset-top)}.wrap{padding-bottom:calc(50px + env(safe-area-inset-bottom))}}
+@supports(height:100dvh){body{min-height:100dvh}}
