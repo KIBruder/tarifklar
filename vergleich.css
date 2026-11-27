@@ -117,3 +117,44 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #087f5b;outline-offset:3px}
 @media(max-width:720px){.top{padding-top:env(safe-area-inset-top)}.wrap{padding-bottom:calc(50px + env(safe-area-inset-bottom))}}
 @supports(height:100dvh){body{min-height:100dvh}}
+
+
+/* TarifKlar visual-first comparison pages */
+.category-visual{width:112px;height:112px;border-radius:34px;display:grid;place-items:center;margin:0 0 22px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.035)}
+.category-visual svg{width:70px;height:70px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.category-strom{background:#fff0d0;color:#bd841d}
+.category-gas{background:#e3f4e9;color:#28875a}
+.category-kfz{background:#e6eefb;color:#426b9d}
+.category-motorrad{background:#f0e8fa;color:#7952a5}
+.hero{grid-template-columns:minmax(0,1fr) 280px;gap:34px}
+.hero .sidebox{background:#fff;border-radius:22px;padding:27px}
+.benefits{gap:14px;margin-top:18px}
+.benefit{position:relative;min-height:158px;padding:21px;border-radius:20px;background:#fff;box-shadow:0 5px 18px rgba(20,40,28,.045)}
+.benefit-icon{display:grid;place-items:center;width:54px;height:54px;margin-bottom:15px;border-radius:17px;background:#eaf5ef;color:#087f5b;font-size:32px;font-weight:700;line-height:1}
+.benefit:nth-child(1) .benefit-icon{background:#fff0d0;color:#bd841d}
+.benefit:nth-child(2) .benefit-icon{background:#e6eefb;color:#426b9d}
+.benefit:nth-child(3) .benefit-icon{background:#e3f4e9;color:#28875a}
+.benefit b{font-size:17px}
+.benefit p{font-size:13px;line-height:1.5}
+.strom-check-teaser{background:linear-gradient(120deg,#f1f8f3,#f8fbf8);border-radius:22px}
+@media(max-width:720px){
+ .hero{padding:30px 22px;gap:20px}
+ .category-visual{width:104px;height:104px;border-radius:32px;margin-bottom:18px}
+ .category-visual svg{width:66px;height:66px}
+ .hero h1{font-size:clamp(38px,10vw,50px)}
+ .hero .lead{font-size:17px;line-height:1.45}
+ .hero .sidebox{padding:20px;border-radius:17px}
+ .benefits{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 44px}
+ .benefit{min-height:135px;padding:12px 9px;border-radius:15px}
+ .benefit-icon{width:46px;height:46px;border-radius:14px;font-size:27px;margin-bottom:11px}
+ .benefit b{font-size:13px;line-height:1.2}
+ .benefit p{font-size:11px;line-height:1.35;margin-top:6px}
+ .content{gap:20px}
+}
+@media(max-width:370px){
+ .benefits{gap:6px}
+ .benefit{padding:10px 7px}
+ .benefit-icon{width:40px;height:40px}
+ .benefit b{font-size:12px}
+ .benefit p{font-size:10px}
+}
