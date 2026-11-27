@@ -1,0 +1,17 @@
+{
+  "id": "/",
+  "name": "TarifKlar – Einfach Kosten prüfen",
+  "short_name": "TarifKlar",
+  "description": "Kosten verstehen, Verträge prüfen und Angebote vergleichen.",
+  "lang": "de-DE",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#087f5b",
+  "icons": [
+    {"src": "/tarifklar-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
