@@ -198,3 +198,33 @@ a.compare-card .card-icon svg{width:21px;height:21px;fill:none;stroke:currentCol
  .affiliate-inline{font-size:10px;line-height:1.4;padding:10px 12px;margin-top:10px}
  .how-section{padding-top:36px}
 }
+
+
+/* Cross-device finishing layer: iOS Safari, Android Chrome and tablets */
+html{min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(72px + env(safe-area-inset-top))}
+body{min-height:100%;overscroll-behavior-y:contain}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+a,button{touch-action:manipulation}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #087f5b;outline-offset:3px}
+.site-header{padding-top:env(safe-area-inset-top)}
+.compare-card{min-width:0}
+@media(max-width:680px){
+  html{scroll-padding-top:calc(60px + env(safe-area-inset-top))}
+  .site-header{height:calc(56px + env(safe-area-inset-top));padding-top:env(safe-area-inset-top)}
+  .comparison-section{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+  a.compare-card{min-height:116px;min-width:0}
+  .tile-title{overflow-wrap:anywhere}
+  .home-tool-mini a{min-height:54px}
+  .affiliate-inline{font-size:11px;line-height:1.5}
+  nav{top:calc(56px + env(safe-area-inset-top))}
+}
+@media(min-width:681px) and (max-width:1024px){
+  .comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  a.compare-card{min-height:145px}
+}
+@media(hover:none){
+  a.compare-card:hover{transform:none;box-shadow:0 2px 8px #11100006}
+}
+@supports(height:100dvh){
+  body{min-height:100dvh}
+}
