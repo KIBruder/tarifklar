@@ -286,3 +286,22 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
   main.wrap section.hero .ad-slot-horizontal { width:100% !important; }
   main.wrap section.hero .ad-slot-horizontal img { width:100% !important; max-width:468px !important; height:auto !important; }
 }
+
+
+/* Explicit Strom hero layout: prevent inherited/legacy positioning from squeezing copy */
+#strom-hero{display:grid!important;grid-template-columns:minmax(0,1fr) 300px!important;align-items:center!important;gap:40px!important}
+#strom-hero>.hero-copy{display:block!important;position:static!important;float:none!important;transform:none!important;inset:auto!important;width:auto!important;min-width:0!important;max-width:none!important;grid-column:1!important}
+#strom-hero>.sidebox{position:static!important;float:none!important;transform:none!important;inset:auto!important;width:100%!important;min-width:0!important;max-width:100%!important;grid-column:2!important}
+#strom-hero .lead,#strom-hero .fine{width:auto!important;max-width:620px!important;overflow-wrap:normal!important}
+@media(max-width:800px){
+ #strom-hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:22px!important;padding:26px 20px!important;overflow:visible!important}
+ #strom-hero>.hero-copy,#strom-hero>.sidebox{display:block!important;position:static!important;float:none!important;transform:none!important;inset:auto!important;width:100%!important;min-width:0!important;max-width:100%!important;flex:0 0 auto!important}
+ #strom-hero .lead,#strom-hero .fine{width:100%!important;max-width:none!important;overflow-wrap:break-word!important}
+ #strom-hero .cta{display:flex!important;width:100%!important}
+ #strom-hero .ad-slot-horizontal{width:100%!important;max-width:100%!important}
+ #strom-hero .ad-slot-horizontal img{width:100%!important;max-width:468px!important;height:auto!important}
+ #strom-hero>.sidebox{order:2!important}
+ #strom-hero .prep-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ #strom-hero .prep-list>div{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:6px!important;min-width:0!important}
+ #strom-hero .prep-list b{font-size:12px!important;overflow-wrap:anywhere!important}
+}
