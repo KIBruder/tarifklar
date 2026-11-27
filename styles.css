@@ -268,3 +268,45 @@ a.compare-card:nth-child(6) .card-icon{background:#edf0fb;color:#5668a4}
  .how-section .step-icon svg{width:25px;height:25px}
  .how-section .steps h3{font-size:17px}
 }
+
+
+/* Visual-first category cards: large pictograms, strong color recognition */
+.comparison-grid{gap:16px}
+a.compare-card{
+ min-height:190px;
+ padding:22px;
+ border:1px solid #e6e9e7;
+ border-radius:23px;
+ background:linear-gradient(145deg,#fff 0%,#fbfcfb 100%);
+ box-shadow:0 8px 24px rgba(20,40,28,.055);
+}
+a.compare-card .card-icon{
+ width:76px;height:76px;flex:0 0 76px;
+ border-radius:24px;margin:0 0 16px;
+ display:grid;place-items:center;
+ box-shadow:inset 0 0 0 1px rgba(0,0,0,.025);
+}
+a.compare-card .card-icon svg{width:43px;height:43px;stroke-width:1.8}
+.tile-title{font-size:23px;line-height:1.12;letter-spacing:-.6px}
+.tile-arrow{right:18px;top:18px;font-size:22px}
+a.compare-card:nth-child(1) .card-icon{background:#fff0d0;color:#bd841d}
+a.compare-card:nth-child(2) .card-icon{background:#e3f4e9;color:#28875a}
+a.compare-card:nth-child(3) .card-icon{background:#e6eefb;color:#426b9d}
+a.compare-card:nth-child(4) .card-icon{background:#f0e8fa;color:#7952a5}
+a.compare-card:nth-child(5) .card-icon{background:#fff0d0;color:#bd841d}
+a.compare-card:nth-child(6) .card-icon{background:#e9edfb;color:#586ba9}
+a.compare-card:active{transform:scale(.975);box-shadow:0 3px 10px rgba(20,40,28,.08)}
+@media(max-width:680px){
+ .comparison-grid{gap:11px}
+ a.compare-card{min-height:166px;padding:16px;border-radius:19px}
+ a.compare-card .card-icon{width:72px;height:72px;flex-basis:72px;border-radius:23px;margin-bottom:13px}
+ a.compare-card .card-icon svg{width:42px;height:42px;stroke-width:1.8}
+ .tile-title{font-size:21px}
+ .tile-arrow{right:14px;top:14px;font-size:21px}
+}
+@media(max-width:370px){
+ a.compare-card{min-height:154px;padding:13px}
+ a.compare-card .card-icon{width:64px;height:64px;flex-basis:64px}
+ a.compare-card .card-icon svg{width:38px;height:38px}
+ .tile-title{font-size:19px}
+}
