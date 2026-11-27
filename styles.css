@@ -480,3 +480,65 @@ a.compare-card:active{transform:scale(.975);box-shadow:0 3px 10px rgba(20,40,28,
 @media(prefers-reduced-motion:reduce){
  .hero-core,.hero-float{animation:none!important}
 }
+
+
+/* Refinement from real iPhone review: more categories above the fold */
+@media(max-width:680px){
+ .hero-visual{width:154px;height:112px;margin-bottom:6px}
+ .hero-core{width:68px;height:68px;border-radius:23px}
+ .core-mark{font-size:34px}
+ .hero-float-bolt{width:43px;height:43px;left:4px;top:10px;border-radius:15px}
+ .hero-float-bolt svg{width:25px;height:25px}
+ .hero-float-euro{width:40px;height:40px;right:5px;top:7px;border-radius:14px;font-size:24px}
+ .hero-float-check{width:38px;height:38px;right:18px;bottom:0;border-radius:14px}
+ .hero-compact h1{font-size:clamp(32px,8.7vw,39px);line-height:1.04;letter-spacing:-1.45px}
+ .hero-subline{margin-top:6px}
+ .comparison-section{padding-top:7px}
+ .section-heading{margin-bottom:9px}
+ .section-heading h2{font-size:16px}
+ .comparison-grid{gap:9px}
+ .comparison-grid a.compare-card{min-height:158px!important;padding:13px!important;border-radius:17px}
+ .comparison-grid a.compare-card .card-icon{width:78px!important;height:78px!important;min-width:78px!important;flex:0 0 78px!important;border-radius:23px!important;margin:0 0 10px!important}
+ .comparison-grid a.compare-card .card-icon svg{width:52px!important;height:52px!important;max-width:52px!important;max-height:52px!important}
+ .comparison-grid a.compare-card .tile-title{font-size:19px!important}
+ .comparison-grid a.compare-card .tile-arrow{font-size:17px;right:12px;top:12px}
+ .quick-cost{margin-top:13px;padding:15px;border-radius:18px}
+ .quick-cost-head{margin-bottom:13px}
+ .quick-cost-icon{width:42px;height:42px;flex-basis:42px}
+ .quick-cost-head strong{font-size:14px}
+ .quick-cost-result{margin:12px 0 10px;padding:10px 12px}
+ .quick-cost-result strong{font-size:20px}
+ .affiliate-inline{margin-top:12px;padding:13px;font-size:11px;line-height:1.45}
+}
+.partner-section{gap:28px}
+.partner-visual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:17px}
+.partner-visual-card{min-height:150px;padding:18px 14px;border:1px solid #e4eae5;border-radius:19px;background:linear-gradient(145deg,#fff,#f8faf8);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px}
+.partner-symbol{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-weight:850;font-size:24px}
+.check24-symbol{background:#e4f3e9;color:#087f5b}
+.tarifcheck-symbol{background:#e9edfb;color:#5269a5}
+.tarifcheck-symbol svg{width:33px;height:33px;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.partner-visual-card strong{font-size:18px;letter-spacing:-.3px}
+.partner-visual-card>span:last-child{font-size:11px;line-height:1.4;color:#748078}
+.partner-disclosure{display:flex;align-items:flex-start;gap:11px;padding:15px;border-radius:16px;background:#f3f7f4}
+.disclosure-icon{width:27px;height:27px;flex:0 0 27px;border-radius:50%;display:grid;place-items:center;background:#e0eee4;color:#087f5b;font-weight:800}
+.partner-disclosure p{margin:0;font-size:13px;line-height:1.55;color:#647068}
+.partner-more{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-weight:750}
+.partner-more span{font-size:20px;transition:transform .2s}
+.partner-more:hover span{transform:translateX(4px)}
+.faq-section details{position:relative;padding:18px 46px 18px 0}
+.faq-section summary{list-style:none;cursor:pointer}
+.faq-section summary::-webkit-details-marker{display:none}
+.faq-section summary:after{content:"+";position:absolute;right:2px;top:17px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#eaf4ed;color:#087f5b;font-size:21px;font-weight:500;transition:transform .2s}
+.faq-section details[open] summary:after{content:"−";transform:rotate(180deg)}
+.faq-section details[open] p{animation:tk-faq-in .22s ease both}
+@keyframes tk-faq-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:680px){
+ .partner-section{padding:45px 20px}
+ .partner-visual-card{min-height:135px;padding:13px;border-radius:16px}
+ .partner-symbol{width:46px;height:46px;border-radius:14px}
+ .partner-visual-card strong{font-size:16px}
+ .partner-disclosure{padding:12px}
+ .partner-disclosure p{font-size:12px}
+ .faq-section details{padding:17px 38px 17px 0}
+ .faq-section summary:after{right:0}
+}
