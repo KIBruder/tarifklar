@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarifklar-shell-v10";
+const CACHE_NAME = "tarifklar-shell-v11";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -8,7 +8,19 @@ const APP_SHELL = [
   "/manifest.webmanifest",
   "/tarifklar-icon.svg",
   "/strom-check.html",
-  "/feedback.html"
+  "/feedback.html",
+  "/feedback-admin.html",
+  "/consent.js",
+  "/strom.html",
+  "/gas.html",
+  "/kfz.html",
+  "/motorrad.html",
+  "/reisen.html",
+  "/c24bank.html",
+  "/affiliate-hinweis.html",
+  "/impressum.html",
+  "/datenschutz.html",
+  "/script.js"
 ];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
