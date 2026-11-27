@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarifklar-shell-v2";
+const CACHE_NAME = "tarifklar-shell-v3";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -7,7 +7,8 @@ const APP_SHELL = [
   "/favicon.svg",
   "/manifest.webmanifest",
   "/tarifklar-icon.svg",
-  "/strom-check.html"
+  "/strom-check.html",
+  "/feedback.html"
 ];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
