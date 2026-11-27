@@ -349,3 +349,27 @@ a.compare-card:active{transform:scale(.975);box-shadow:0 3px 10px rgba(20,40,28,
  .steps .step-icon svg{width:30px;height:30px}
  .steps h3{font-size:12px}
 }
+
+
+/* Final mobile override: category pictograms should dominate the card */
+@media(max-width:680px){
+ .comparison-grid a.compare-card .card-icon{
+   width:112px!important;height:112px!important;min-width:112px!important;
+   flex:0 0 112px!important;border-radius:32px!important;
+   margin:0 0 15px!important;display:grid!important;place-items:center!important;
+ }
+ .comparison-grid a.compare-card .card-icon svg{
+   width:76px!important;height:76px!important;max-width:76px!important;
+   max-height:76px!important;stroke-width:1.8!important;
+ }
+ .comparison-grid a.compare-card{min-height:218px!important;padding:17px!important}
+ .comparison-grid a.compare-card .tile-title{font-size:21px!important}
+}
+@media(max-width:370px){
+ .comparison-grid a.compare-card .card-icon{
+   width:100px!important;height:100px!important;min-width:100px!important;
+   flex-basis:100px!important
+ }
+ .comparison-grid a.compare-card .card-icon svg{width:68px!important;height:68px!important}
+ .comparison-grid a.compare-card{min-height:205px!important}
+}
