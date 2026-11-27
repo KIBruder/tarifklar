@@ -254,3 +254,35 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
     overflow-wrap:anywhere!important;
   }
 }
+
+
+/* Definitive iPhone hero stacking */
+@media screen and (max-width: 720px) {
+  main.wrap section.hero {
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    gap:18px !important;
+    overflow:hidden !important;
+  }
+  main.wrap section.hero > div,
+  main.wrap section.hero > aside.sidebox {
+    display:block !important;
+    position:static !important;
+    float:none !important;
+    inset:auto !important;
+    transform:none !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    flex:0 0 auto !important;
+    grid-column:auto !important;
+  }
+  main.wrap section.hero > div { order:1 !important; }
+  main.wrap section.hero > aside.sidebox { order:2 !important; }
+  main.wrap section.hero .lead,
+  main.wrap section.hero .fine { width:100% !important; max-width:100% !important; }
+  main.wrap section.hero .cta { width:100% !important; }
+  main.wrap section.hero .ad-slot-horizontal { width:100% !important; }
+  main.wrap section.hero .ad-slot-horizontal img { width:100% !important; max-width:468px !important; height:auto !important; }
+}
