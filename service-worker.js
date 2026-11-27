@@ -1,10 +1,11 @@
-const CACHE_NAME = "tarifklar-shell-v1";
+const CACHE_NAME = "tarifklar-shell-v2";
 const APP_SHELL = [
   "/",
   "/index.html",
   "/styles.css",
   "/vergleich.css",
   "/favicon.svg",
+  "/manifest.webmanifest",
   "/tarifklar-icon.svg",
   "/strom-check.html"
 ];
