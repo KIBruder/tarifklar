@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarifklar-shell-v11";
+const CACHE_NAME = "tarifklar-shell-v12";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -34,9 +34,9 @@ self.addEventListener("fetch", event => {
   if (request.mode === "navigate") {
     event.respondWith(fetch(request).then(response => {
       const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+      event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.put(request, copy)));
       return response;
-    }).catch(async () => (await caches.match(request)) || (await caches.match("/index.html"))));
+    }).catch(async () => (await caches.match(request, { ignoreSearch: true })) || (await caches.match("/index.html"))));
     return;
   }
   event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(response => {
