@@ -91,3 +91,56 @@ footer small{font-size:12px}
  .footer-links{font-size:13px;gap:16px}
  .mobile-compare{min-height:54px;left:16px;right:16px;bottom:14px;border-radius:16px;background:#17191c;font-size:15px}
 }
+
+
+/* Homepage conversion layout: comparison choices are the primary content */
+.hero-compact{padding:34px 5% 24px;background:#f5f6f7}
+.hero-compact .hero-inner{max-width:1120px}
+.hero-compact .eyebrow{font-size:11px}
+.hero-compact h1{font-size:clamp(34px,4.4vw,52px);line-height:1.04;letter-spacing:-2.2px;margin:14px 0 10px;max-width:700px}
+.hero-compact h1 span{color:#087f5b}
+.hero-compact .hero-lead{font-size:16px;line-height:1.45;max-width:650px}
+.comparison-section{padding-top:30px}
+.section-heading h2{font-size:clamp(30px,3.2vw,40px)}
+.section-heading>p{margin-top:8px}
+.comparison-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.compare-card{min-height:230px;padding:22px;border-radius:18px}
+.compare-card h3{font-size:24px;margin:14px 0 6px}
+.compare-card>p{font-size:14px;line-height:1.45;margin-bottom:12px}
+.card-icon{width:42px;height:42px;border-radius:13px}
+.card-icon svg{width:22px;height:22px}
+.button{min-height:44px;font-size:13px;border-radius:12px}
+.button-card{margin-top:11px}
+.affiliate-inline{margin-top:18px}
+@media(max-width:950px){
+ .comparison-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .compare-card{padding:18px}
+ .compare-card h3{font-size:21px}
+}
+@media(max-width:680px){
+ .site-header{height:62px;padding:0 17px}
+ .hero-compact{padding:24px 18px 13px}
+ .hero-compact .eyebrow{font-size:9px;letter-spacing:1.1px}
+ .hero-compact h1{font-size:35px;line-height:1.02;letter-spacing:-1.8px;margin:11px 0 7px}
+ .hero-compact .hero-lead{font-size:14px;line-height:1.4}
+ .comparison-section{padding:17px 16px 55px}
+ .section-heading h2{font-size:27px;letter-spacing:-1.1px;margin-top:7px}
+ .section-heading>p{font-size:13px;line-height:1.4;margin-top:5px}
+ .comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}
+ .compare-card{min-height:126px;padding:12px;border-radius:15px}
+ .card-top{align-items:center}
+ .category-tag{font-size:8px;letter-spacing:.65px}
+ .card-icon{width:31px;height:31px;border-radius:10px}
+ .card-icon svg{width:18px;height:18px}
+ .compare-card h3{font-size:17px;letter-spacing:-.35px;margin:8px 0 0}
+ .compare-card>p{display:none}
+ .card-partner{font-size:9px;line-height:1.2;padding-top:7px;margin-top:5px}
+ .button-card{min-height:31px;font-size:10px;padding:0 8px;margin-top:7px;border-radius:9px;gap:5px}
+ .affiliate-inline{font-size:11px;line-height:1.5;padding:12px;margin-top:14px}
+ .mobile-compare{display:none}
+}
+@media(max-width:370px){
+ .compare-card{padding:10px;min-height:121px}
+ .compare-card h3{font-size:16px}
+ .button-card{font-size:9px}
+}
