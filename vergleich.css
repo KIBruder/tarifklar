@@ -329,3 +329,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
  #strom-hero .prep-list>div{min-width:0!important;padding:9px 6px!important}
  #strom-hero .prep-list b{font-size:11px!important;overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important}
 }
+
+/* Strom page flow: heading, simple steps, then provider form */
+.strom-intro{display:block!important;padding:0 0 8px!important}
+.strom-intro>div{max-width:780px}
+.strom-widget{display:block!important;padding:0 0 34px!important}
+.strom-widget>div{width:100%;min-width:0}
+@media(max-width:720px){.strom-intro{padding-bottom:4px!important}.strom-widget{padding-bottom:28px!important}}
