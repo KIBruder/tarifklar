@@ -310,3 +310,42 @@ a.compare-card:active{transform:scale(.975);box-shadow:0 3px 10px rgba(20,40,28,
  a.compare-card .card-icon svg{width:38px;height:38px}
  .tile-title{font-size:19px}
 }
+
+
+/* App-like visual journey and oversized icon bubbles */
+@media(min-width:681px){
+ a.compare-card{min-height:210px}
+ a.compare-card .card-icon{width:88px;height:88px;flex-basis:88px;border-radius:28px}
+ a.compare-card .card-icon svg{width:54px;height:54px}
+ .steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+ .steps article{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:24px 16px;border:1px solid #e7ece8;border-radius:20px;background:#fff}
+ .steps .step-icon{width:76px;height:76px;flex-basis:76px;border-radius:25px}
+ .steps .step-icon svg{width:42px;height:42px}
+}
+.how-section{background:#f6f8f6}
+.how-section .eyebrow{letter-spacing:1.6px}
+.how-section h2{letter-spacing:-1.2px}
+.steps article:nth-child(1) .step-icon{background:#fff0d0;color:#bd841d}
+.steps article:nth-child(2) .step-icon{background:#e3f4e9;color:#28875a}
+.steps article:nth-child(3) .step-icon{background:#e6eefb;color:#426b9d}
+@media(max-width:680px){
+ a.compare-card{min-height:180px;padding:16px}
+ a.compare-card .card-icon{width:88px;height:88px;flex-basis:88px;border-radius:28px;margin-bottom:13px}
+ a.compare-card .card-icon svg{width:54px;height:54px;stroke-width:1.7}
+ .tile-title{font-size:21px}
+ .how-section{padding:38px 15px 44px}
+ .how-section h2{font-size:28px;margin-bottom:18px}
+ .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+ .steps article{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:126px;padding:12px 5px;border:1px solid #e3e9e4;border-radius:17px;background:#fff}
+ .steps .step-icon{width:58px;height:58px;flex:0 0 58px;border-radius:19px}
+ .steps .step-icon svg{width:34px;height:34px}
+ .steps h3{font-size:13px;line-height:1.2;margin:0}
+}
+@media(max-width:370px){
+ a.compare-card{min-height:165px}
+ a.compare-card .card-icon{width:78px;height:78px;flex-basis:78px}
+ a.compare-card .card-icon svg{width:48px;height:48px}
+ .steps .step-icon{width:52px;height:52px;flex-basis:52px}
+ .steps .step-icon svg{width:30px;height:30px}
+ .steps h3{font-size:12px}
+}
