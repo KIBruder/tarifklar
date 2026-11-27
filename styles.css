@@ -228,3 +228,43 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 @supports(height:100dvh){
   body{min-height:100dvh}
 }
+
+
+/* Three-second scan: make the first screen a visual task launcher */
+.hero-compact{padding-top:26px;padding-bottom:15px;background:linear-gradient(180deg,#f6f8f7 0%,#fff 100%)}
+.hero-compact h1{font-size:clamp(36px,5vw,54px);line-height:1.02;letter-spacing:-2.1px}
+.comparison-section{padding-top:16px}
+.section-heading h2{font-size:20px}
+.comparison-grid{gap:14px}
+a.compare-card{min-height:164px;padding:19px;border-radius:20px;box-shadow:0 5px 18px #17291d0a}
+a.compare-card .card-icon{width:56px;height:56px;border-radius:18px;margin-bottom:13px}
+a.compare-card .card-icon svg{width:29px;height:29px;stroke-width:1.8}
+.tile-title{font-size:21px;letter-spacing:-.5px}
+.tile-arrow{right:17px;top:17px;font-size:20px}
+a.compare-card:nth-child(5) .card-icon{background:#fff1dc;color:#bd8119}
+a.compare-card:nth-child(6) .card-icon{background:#edf0fb;color:#5668a4}
+.how-section .steps article{align-items:center;min-height:110px}
+.how-section .step-icon{width:58px;height:58px;flex-basis:58px;border-radius:18px}
+.how-section .step-icon svg{width:30px;height:30px}
+.how-section .steps h3{font-size:19px}
+@media(max-width:680px){
+ .hero-compact{padding:24px 18px 14px}
+ .hero-compact h1{font-size:36px;line-height:1.02;letter-spacing:-1.65px}
+ .comparison-section{padding:12px 16px 34px}
+ .section-heading{margin-bottom:12px}
+ .section-heading h2{font-size:16px}
+ .comparison-grid{gap:10px}
+ a.compare-card{min-height:137px;padding:14px;border-radius:17px}
+ a.compare-card .card-icon{width:48px;height:48px;border-radius:15px;margin-bottom:10px}
+ a.compare-card .card-icon svg{width:26px;height:26px}
+ .tile-title{font-size:19px}
+ .tile-arrow{right:13px;top:13px;font-size:18px}
+ .tile-sub{display:none}
+ .home-tool-mini small{display:none}
+ .home-tool-mini a{min-height:58px}
+ .affiliate-inline{font-size:10px}
+ .how-section .steps article{min-height:82px;padding:14px}
+ .how-section .step-icon{width:48px;height:48px;flex-basis:48px}
+ .how-section .step-icon svg{width:25px;height:25px}
+ .how-section .steps h3{font-size:17px}
+}
