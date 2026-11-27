@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarifklar-shell-v13";
+const CACHE_NAME = "tarifklar-shell-v14";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -7,7 +7,6 @@ const APP_SHELL = [
   "/favicon.svg",
   "/manifest.webmanifest",
   "/tarifklar-icon.svg",
-  "/apple-touch-icon.png",
   "/apple-touch-icon.png",
   "/strom-check.html",
   "/feedback.html",
@@ -44,7 +43,7 @@ self.addEventListener("fetch", event => {
   event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(response => {
     if (response.ok) {
       const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+      event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.put(request, copy)));
     }
     return response;
   })));
