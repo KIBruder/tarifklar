@@ -1,25 +1,69 @@
 <!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#087f5b">
-<title>Feedback-Verwaltung · TarifKlar</title>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#087f5b"><title>Feedback-Verwaltung · TarifKlar">
 <style>
-*{box-sizing:border-box}html{min-height:100%;background:#f5f8f6}body{margin:0;min-height:100vh;background:#f5f8f6;color:#17231c;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(100% - 28px,760px);margin:36px auto}.card{background:#fff;border:1px solid #e0e9e2;border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(20,50,30,.05)}.brand{font-size:13px;font-weight:750;letter-spacing:.04em;color:#087f5b}h1{font-size:clamp(27px,6vw,38px);line-height:1.15;letter-spacing:-.04em;margin:12px 0}p{margin:12px 0;color:#526158}.notice{margin-top:22px;padding:16px;border-radius:12px;background:#fff7e6;border:1px solid #f2dfb4;color:#604719}.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}a{color:#087f5b;font-weight:650;text-decoration:none}a:focus-visible{outline:3px solid #79b99b;outline-offset:4px}.small{font-size:13px;color:#68766d;margin-top:24px}
-</style>
-</head>
-<body>
-<main class="wrap">
-<section class="card">
-<div class="brand">TARIFKLAR · VERWALTUNG</div>
-<h1>Community-Moderation</h1>
-<p>Dies ist der interne Verwaltungsbereich für das TarifKlar-Feedback.</p>
-<div class="notice"><strong>Moderation derzeit pausiert</strong><p>Die geschützte Administrator-Schnittstelle ist noch nicht vollständig eingerichtet. Deshalb sind Anmeldung, Freigabe und Statusänderungen aktuell deaktiviert. Eingereichte Beiträge bleiben unveröffentlicht.</p></div>
-<div class="links"><a href="/feedback.html">Zum öffentlichen Feedback-Board</a><a href="/">Zur Startseite</a></div>
-<p class="small">Dieser Bereich ist nicht öffentlich indexierbar. Bitte keine Zugangsdaten auf dieser Seite eingeben.</p>
+*{box-sizing:border-box}body{margin:0;background:#f4f7f5;color:#17231c;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(100% - 28px,900px);margin:28px auto 60px}.card{background:#fff;border:1px solid #e0e9e2;border-radius:18px;padding:22px;margin:0 0 16px;box-shadow:0 6px 24px #183c2410}.brand{font-size:13px;font-weight:800;letter-spacing:.08em;color:#087f5b}h1{font-size:clamp(27px,6vw,38px);line-height:1.15;letter-spacing:-.04em;margin:10px 0}h2{font-size:20px;margin:0 0 8px}.muted{color:#68766e}.field{display:block;width:100%;padding:13px;border:1px solid #d6e0d8;border-radius:10px;margin:7px 0 15px;font:inherit}.btn{border:0;border-radius:10px;padding:12px 16px;background:#087f5b;color:#fff;font:inherit;font-weight:700;cursor:pointer}.btn:disabled{opacity:.5;cursor:wait}.secondary{background:#eaf4ee;color:#15583e}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.msg{margin-top:12px;color:#a02d25}.post{border-top:1px solid #e8eee9;padding:18px 0}.post h3{font-size:19px;margin:8px 0}.post p{white-space:pre-wrap;overflow-wrap:anywhere;color:#4f5e55}.tag{font-size:12px;font-weight:800;letter-spacing:.04em;color:#087f5b}.meta{font-size:12px;color:#758178}.post select{max-width:100%;padding:10px;border:1px solid #d6e0d8;border-radius:9px;background:white;font:inherit}.status-public{color:#087f5b}.status-private{color:#9a6417}.empty{padding:20px 0;color:#68766e}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}@media(max-width:600px){.wrap{margin-top:14px}.card{padding:17px}.post .row{align-items:stretch}.post select,.post button{width:100%}}
+</style></head>
+<body><main class="wrap">
+<section class="card"><div class="brand">TARIFKLAR · VERWALTUNG</div><h1>Community-Moderation</h1><p class="muted">Melde dich mit deinen Cloudflare-Admin-Secrets an. Das Passwort wird ausschließlich über HTTPS an den TarifKlar-Worker übertragen.</p>
+<form id="login"><label for="email">Administrator-E-Mail</label><input class="field" id="email" type="email" autocomplete="username" value="Kibruder@outlook.de" required><label for="password">Admin-Passwort</label><input class="field" id="password" type="password" autocomplete="current-password" required minlength="32"><button class="btn" id="loginBtn" type="submit">Sicher anmelden</button><div id="loginMsg" class="msg" role="alert"></div></form>
+<div id="session" class="hidden"><div class="topline"><strong id="who">Angemeldet</strong><div class="row"><button class="btn secondary" id="refresh" type="button">Aktualisieren</button><button class="btn secondary" id="logout" type="button">Abmelden</button></div></div></div>
 </section>
+<section id="board" class="card hidden"><div class="topline"><div><h2>Eingereichte Beiträge</h2><p class="muted">Beiträge werden erst nach deiner Freigabe öffentlich sichtbar.</p></div><span id="count" class="meta"></span></div><div id="posts" aria-live="polite">Lade Beiträge …</div></section>
 </main>
-</body>
-</html>
+<script>
+(function(){
+"use strict";
+const API="https://tarifklar-feedback-api.kibruder.workers.dev/api/admin";
+const KEY="tarifklar_admin_session";
+const labels={idea:"Idee",wish:"Wunsch",criticism:"Kritik",bug:"Fehler",praise:"Lob"};
+const states={new:"Neu",planned:"Geplant",in_progress:"In Arbeit",done:"Umgesetzt",declined:"Nicht geplant"};
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function api(path,opts={}){
+ const headers={"Content-Type":"application/json"};
+ const token=sessionStorage.getItem(KEY);
+ if(token)headers.Authorization="Bearer "+token;
+ const response=await fetch(API+path,{method:opts.method||"GET",headers,body:opts.body});
+ let data={};try{data=await response.json()}catch{}
+ if(!response.ok)throw new Error(data.error||"Serverfehler ("+response.status+").");
+ return data;
+}
+function showBoard(email){$("login").classList.add("hidden");$("session").classList.remove("hidden");$("board").classList.remove("hidden");$("who").textContent="Angemeldet: "+email;}
+function signedOut(message){sessionStorage.removeItem(KEY);$("login").classList.remove("hidden");$("session").classList.add("hidden");$("board").classList.add("hidden");if(message)$("loginMsg").textContent=message;}
+async function load(){
+ $("posts").textContent="Lade Beiträge …";
+ try{
+  const data=await api("/posts"),posts=Array.isArray(data.posts)?data.posts:[];
+  $("count").textContent=posts.length+" Beiträge";
+  if(!posts.length){$("posts").innerHTML='<div class="empty">Noch keine Beiträge eingereicht.</div>';return;}
+  $("posts").innerHTML=posts.map(p=>{
+   const id=Number(p.id),isPublic=Number(p.is_public)===1||p.is_public===true;
+   return '<article class="post" data-id="'+id+'"><div class="tag">'+esc(labels[p.category]||"Feedback")+' · #'+id+' · <span class="'+(isPublic?"status-public":"status-private")+'">'+(isPublic?"ÖFFENTLICH":"NICHT VERÖFFENTLICHT")+'</span></div><h3>'+esc(p.title)+'</h3><p>'+esc(p.body)+'</p><div class="meta">Eingereicht: '+esc(p.created_at)+' · Stimmen: '+Number(p.votes||0)+'</div><div class="row" style="margin-top:13px"><select class="state" aria-label="Status">'+Object.entries(states).map(([v,l])=>'<option value="'+v+'" '+(p.status===v?"selected":"")+'>'+l+'</option>').join("")+'</select><button class="btn publish" type="button" data-publish="'+(isPublic?"0":"1")+'">'+(isPublic?"Verbergen":"Veröffentlichen")+'</button><button class="btn secondary save" type="button">Status speichern</button></div></article>';
+  }).join("");
+ }catch(e){if(/Sitzung|angemeldet|abgelaufen/i.test(e.message))signedOut(e.message);$("posts").textContent=e.message;}
+}
+$("login").addEventListener("submit",async e=>{
+ e.preventDefault();$("loginBtn").disabled=true;$("loginMsg").textContent="Anmeldung wird geprüft …";
+ try{
+  const data=await api("/login",{method:"POST",body:JSON.stringify({email:$("email").value.trim(),password:$("password").value})});
+  if(!data.token)throw new Error("Der Server hat kein Sitzungstoken zurückgegeben.");
+  sessionStorage.setItem(KEY,data.token);$("password").value="";$("loginMsg").textContent="";
+  showBoard(data.email||$("email").value);await load();
+ }catch(err){$("loginMsg").textContent=err.message;}
+ finally{$("loginBtn").disabled=false;}
+});
+$("refresh").addEventListener("click",load);
+$("logout").addEventListener("click",()=>signedOut("Du wurdest abgemeldet."));
+$("posts").addEventListener("click",async e=>{
+ const button=e.target.closest(".publish,.save");if(!button)return;
+ const article=button.closest("[data-id]");const publish=button.classList.contains("publish");
+ const pubButton=article.querySelector(".publish");
+ button.disabled=true;
+ try{
+  await api("/moderate",{method:"POST",body:JSON.stringify({id:Number(article.dataset.id),status:article.querySelector(".state").value,is_public:publish?pubButton.dataset.publish==="1":pubButton.dataset.publish==="1"})});
+  await load();
+ }catch(err){alert(err.message);button.disabled=false;}
+});
+if(sessionStorage.getItem(KEY)){showBoard("Admin");load();}
+})();
+</script></body></html>
