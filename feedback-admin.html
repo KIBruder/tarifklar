@@ -8,6 +8,22 @@
 <form id="login"><label for="email">Administrator-E-Mail</label><input class="field" id="email" type="email" autocomplete="username" value="Kibruder@outlook.de" required><label for="password">Admin-Passwort</label><input class="field" id="password" type="password" autocomplete="current-password" required minlength="32"><button class="btn" id="loginBtn" type="submit">Sicher anmelden</button><div id="loginMsg" class="msg" role="alert"></div></form>
 <div id="session" class="hidden"><div class="topline"><strong id="who">Angemeldet</strong><div class="row"><button class="btn secondary" id="refresh" type="button">Aktualisieren</button><button class="btn secondary" id="logout" type="button">Abmelden</button></div></div></div>
 </section>
+<section id="analytics" class="card hidden">
+ <div class="topline"><div><h2>Affiliate-Performance</h2><p class="muted">Aggregierte ausgehende Partner-Klicks aus der TarifKlar-Datenbank.</p></div><button class="btn secondary" id="refreshStats" type="button">Statistik aktualisieren</button></div>
+ <div class="stats-grid"><div class="stat"><span class="muted">Klicks gesamt</span><strong id="statTotal">–</strong></div><div class="stat"><span class="muted">Letzte 30 Tage</span><strong id="stat30">–</strong></div></div>
+ <h3>Nach Kategorie und Partner</h3><div id="statCategories" class="empty">Statistik wird geladen …</div>
+ <h3>Verlauf · letzte 30 Tage</h3><div id="statDaily" class="empty">Statistik wird geladen …</div>
+ <p class="meta">Diese Zahlen zeigen Klicks auf Partnerlinks, keine bestätigten Leads, Verträge oder Provisionen.</p>
+ <div id="statsMsg" class="msg" role="status"></div>
+</section>
+<style>
+.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.stat{background:#f4f8f5;border:1px solid #e0e9e2;border-radius:13px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.stat strong{font-size:32px;letter-spacing:-1px}
+.stat-row{display:grid;grid-template-columns:100px 1fr 50px;gap:10px;align-items:center;margin:10px 0;font-size:14px}
+.bar{height:9px;border-radius:99px;background:#e7eee9;overflow:hidden}.bar span{display:block;height:100%;background:#087f5b;border-radius:99px}
+@media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:80px 1fr 42px;gap:7px;font-size:12px}}
+</style>
 <section id="board" class="card hidden"><div class="topline"><div><h2>Eingereichte Beiträge</h2><p class="muted">Beiträge werden erst nach deiner Freigabe öffentlich sichtbar.</p></div><span id="count" class="meta"></span></div><div id="posts" aria-live="polite">Lade Beiträge …</div></section>
 </main>
 <script>
@@ -28,8 +44,25 @@ async function api(path,opts={}){
  if(!response.ok)throw new Error(data.error||"Serverfehler ("+response.status+").");
  return data;
 }
-function showBoard(email){$("login").classList.add("hidden");$("session").classList.remove("hidden");$("board").classList.remove("hidden");$("who").textContent="Angemeldet: "+email;}
-function signedOut(message){sessionStorage.removeItem(KEY);$("login").classList.remove("hidden");$("session").classList.add("hidden");$("board").classList.add("hidden");if(message)$("loginMsg").textContent=message;}
+function showBoard(email){$("login").classList.add("hidden");$("session").classList.remove("hidden");$("board").classList.remove("hidden");$("analytics").classList.remove("hidden");$("who").textContent="Angemeldet: "+email;}
+function signedOut(message){sessionStorage.removeItem(KEY);$("login").classList.remove("hidden");$("session").classList.add("hidden");$("board").classList.add("hidden");$("analytics").classList.add("hidden");if(message)$("loginMsg").textContent=message;}
+async function loadStats(){
+ $("statsMsg").textContent="";$("statCategories").textContent="Lade Statistik …";$("statDaily").textContent="Lade Verlauf …";
+ try{
+  const data=await api("/stats"),daily=Array.isArray(data.daily)?data.daily:[],cats=Array.isArray(data.byCategory)?data.byCategory:[];
+  const total30=daily.reduce((n,x)=>n+Number(x.clicks||0),0);
+  $("statTotal").textContent=Number(data.total||0).toLocaleString("de-DE");
+  $("stat30").textContent=total30.toLocaleString("de-DE");
+  if(!cats.length){$("statCategories").textContent="Noch keine Klicks erfasst.";}else{
+   const max=Math.max(1,...cats.map(x=>Number(x.clicks||0)));
+   $("statCategories").innerHTML=cats.map(x=>'<div class="stat-row"><strong>'+esc(x.category)+'</strong><div class="bar"><span style="width:'+Math.round(Number(x.clicks||0)/max*100)+'%"></span></div><span>'+Number(x.clicks||0).toLocaleString("de-DE")+'</span></div>').join("");
+  }
+  if(!daily.length){$("statDaily").textContent="Im Zeitraum noch keine Klicks.";}else{
+   const max=Math.max(1,...daily.map(x=>Number(x.clicks||0)));
+   $("statDaily").innerHTML=daily.map(x=>'<div class="stat-row"><span>'+esc(x.click_date.slice(5))+'</span><div class="bar"><span style="width:'+Math.round(Number(x.clicks||0)/max*100)+'%"></span></div><span>'+Number(x.clicks||0)+'</span></div>').join("");
+  }
+ }catch(e){$("statCategories").textContent="Statistik konnte nicht geladen werden.";$("statDaily").textContent="";$("statsMsg").textContent=e.message;if(/Sitzung|angemeldet|abgelaufen/i.test(e.message))signedOut(e.message);}
+}
 async function load(){
  $("posts").textContent="Lade Beiträge …";
  try{
@@ -48,11 +81,12 @@ $("login").addEventListener("submit",async e=>{
   const data=await api("/login",{method:"POST",body:JSON.stringify({email:$("email").value.trim(),password:$("password").value})});
   if(!data.token)throw new Error("Der Server hat kein Sitzungstoken zurückgegeben.");
   sessionStorage.setItem(KEY,data.token);$("password").value="";$("loginMsg").textContent="";
-  showBoard(data.email||$("email").value);await load();
+  showBoard(data.email||$("email").value);await Promise.all([load(),loadStats()]);
  }catch(err){$("loginMsg").textContent=err.message;}
  finally{$("loginBtn").disabled=false;}
 });
-$("refresh").addEventListener("click",load);
+$("refresh").addEventListener("click",()=>{load();loadStats();});
+$("refreshStats").addEventListener("click",loadStats);
 $("logout").addEventListener("click",()=>signedOut("Du wurdest abgemeldet."));
 $("posts").addEventListener("click",async e=>{
  const button=e.target.closest(".publish,.save");if(!button)return;
@@ -64,6 +98,6 @@ $("posts").addEventListener("click",async e=>{
   await load();
  }catch(err){alert(err.message);button.disabled=false;}
 });
-if(sessionStorage.getItem(KEY)){showBoard("Admin");load();}
+if(sessionStorage.getItem(KEY)){showBoard("Admin");load();loadStats();}
 })();
 </script></body></html>
