@@ -152,3 +152,49 @@ footer small{font-size:12px}
 .home-tool>a{flex:0 0 auto;display:inline-flex;align-items:center;gap:12px;padding:15px 18px;border-radius:12px;background:#087f5b;color:#fff;font-size:13px;font-weight:750;text-decoration:none}
 .home-tool>a:hover{background:#066b4d}
 @media(max-width:680px){.home-tool{padding:17px 16px 23px;display:block}.home-tool h2{font-size:23px}.home-tool p{font-size:13px}.home-tool>a{margin-top:14px;width:100%;justify-content:center;min-height:46px}}
+
+/* 2026 mobile-first redesign: icon-led task selection */
+.hero-compact{padding:20px 5% 8px;background:#fff}
+.hero-compact .hero-inner{max-width:1120px}
+.hero-compact h1{font-size:clamp(30px,4vw,42px);line-height:1.06;letter-spacing:-1.7px;margin:0}
+.hero-compact h1 span{color:#087f5b}
+.comparison-section{padding-top:10px}
+.section-heading{margin-bottom:13px}
+.section-heading h2{font-size:19px;letter-spacing:-.4px;margin:0}
+.section-heading>p{display:none}
+.comparison-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:0}
+a.compare-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:132px;padding:18px;border:1px solid #e5e7e9;border-radius:17px;background:#fff;text-decoration:none;transition:border-color .15s,transform .15s;box-shadow:0 2px 8px #11100006}
+a.compare-card:hover{border-color:#aeb8b1;transform:translateY(-1px)}
+a.compare-card .card-icon{width:38px;height:38px;margin:0 0 10px;border-radius:12px;display:grid;place-items:center}
+a.compare-card .card-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile-title{font-size:19px;font-weight:750;letter-spacing:-.4px;line-height:1.2}
+.tile-sub{font-size:12px;color:#70777d;margin-top:4px}
+.tile-arrow{position:absolute;right:16px;top:16px;color:#92999f;font-size:17px}
+.home-tool-mini{margin-top:13px}
+.home-tool-mini a{display:flex;align-items:center;gap:12px;padding:13px 15px;background:#f5f7f6;border-radius:14px;text-decoration:none}
+.home-tool-mini a>span:first-child{font-size:23px}
+.home-tool-mini a span:nth-child(2){display:flex;flex-direction:column;gap:2px;flex:1}
+.home-tool-mini strong{font-size:13px}
+.home-tool-mini small{font-size:11px;color:#6c747a}
+.home-tool-mini b{font-size:17px}
+.affiliate-inline{font-size:11px;line-height:1.45;padding:11px 13px;margin-top:13px}
+@media(max-width:950px){.comparison-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){
+ .site-header{height:56px;padding:0 16px}
+ .hero-compact{padding:17px 17px 8px}
+ .hero-compact h1{font-size:30px;letter-spacing:-1.3px}
+ .comparison-section{padding:10px 16px 40px}
+ .section-heading{margin-bottom:11px}
+ .section-heading h2{font-size:17px}
+ .comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ a.compare-card{min-height:112px;padding:13px;border-radius:14px}
+ a.compare-card .card-icon{width:33px;height:33px;margin-bottom:8px}
+ a.compare-card .card-icon svg{width:18px;height:18px}
+ .tile-title{font-size:17px}
+ .tile-sub{font-size:11px}
+ .tile-arrow{right:12px;top:12px;font-size:15px}
+ .home-tool-mini{margin-top:10px}
+ .home-tool-mini a{padding:11px 12px}
+ .affiliate-inline{font-size:10px;line-height:1.4;padding:10px 12px;margin-top:10px}
+ .how-section{padding-top:36px}
+}
