@@ -8,6 +8,7 @@ const APP_SHELL = [
   "/manifest.webmanifest",
   "/tarifklar-icon.svg",
   "/apple-touch-icon.png",
+  "/apple-touch-icon.png",
   "/strom-check.html",
   "/feedback.html",
   "/feedback-admin.html",
