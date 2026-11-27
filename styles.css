@@ -144,3 +144,11 @@ footer small{font-size:12px}
  .compare-card h3{font-size:16px}
  .button-card{font-size:9px}
 }
+
+/* Free consumer tool teaser on homepage */
+.home-tool{max-width:1120px;margin:0 auto;padding:20px 5% 28px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.home-tool h2{font-size:clamp(22px,3vw,30px);letter-spacing:-1px;margin:8px 0}
+.home-tool p{font-size:14px;line-height:1.55;color:#626970;max-width:610px;margin:0}
+.home-tool>a{flex:0 0 auto;display:inline-flex;align-items:center;gap:12px;padding:15px 18px;border-radius:12px;background:#087f5b;color:#fff;font-size:13px;font-weight:750;text-decoration:none}
+.home-tool>a:hover{background:#066b4d}
+@media(max-width:680px){.home-tool{padding:17px 16px 23px;display:block}.home-tool h2{font-size:23px}.home-tool p{font-size:13px}.home-tool>a{margin-top:14px;width:100%;justify-content:center;min-height:46px}}
