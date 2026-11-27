@@ -373,3 +373,56 @@ a.compare-card:active{transform:scale(.975);box-shadow:0 3px 10px rgba(20,40,28,
  .comparison-grid a.compare-card .card-icon svg{width:68px!important;height:68px!important}
  .comparison-grid a.compare-card{min-height:205px!important}
 }
+
+
+/* Motion design: quick, calm entrance + tactile interaction */
+@keyframes tk-card-in{
+  0%{opacity:0;transform:translateY(18px) scale(.975)}
+  70%{opacity:1;transform:translateY(-2px) scale(1.005)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes tk-icon-pop{
+  0%{transform:scale(.72) rotate(-7deg)}
+  65%{transform:scale(1.08) rotate(2deg)}
+  100%{transform:scale(1) rotate(0)}
+}
+@keyframes tk-soft-glow{
+  0%,100%{box-shadow:0 0 0 0 rgba(8,127,91,0)}
+  50%{box-shadow:0 0 0 7px rgba(8,127,91,.045)}
+}
+.comparison-grid a.compare-card{
+  opacity:0;
+  animation:tk-card-in .52s cubic-bezier(.2,.8,.2,1) forwards;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.comparison-grid a.compare-card:nth-child(1){animation-delay:.04s}
+.comparison-grid a.compare-card:nth-child(2){animation-delay:.10s}
+.comparison-grid a.compare-card:nth-child(3){animation-delay:.16s}
+.comparison-grid a.compare-card:nth-child(4){animation-delay:.22s}
+.comparison-grid a.compare-card:nth-child(5){animation-delay:.28s}
+.comparison-grid a.compare-card:nth-child(6){animation-delay:.34s}
+.comparison-grid a.compare-card .card-icon{
+  transform-origin:center;
+  animation:tk-icon-pop .62s cubic-bezier(.2,.8,.2,1) both;
+}
+.comparison-grid a.compare-card:nth-child(1) .card-icon{animation-delay:.12s}
+.comparison-grid a.compare-card:nth-child(2) .card-icon{animation-delay:.18s}
+.comparison-grid a.compare-card:nth-child(3) .card-icon{animation-delay:.24s}
+.comparison-grid a.compare-card:nth-child(4) .card-icon{animation-delay:.30s}
+.comparison-grid a.compare-card:nth-child(5) .card-icon{animation-delay:.36s}
+.comparison-grid a.compare-card:nth-child(6) .card-icon{animation-delay:.42s}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ .comparison-grid a.compare-card:hover{
+   transform:translateY(-5px);
+   border-color:#c8dfd0;
+   box-shadow:0 14px 32px rgba(20,55,34,.10);
+ }
+ .comparison-grid a.compare-card:hover .card-icon{transform:scale(1.06) rotate(-2deg)}
+ .comparison-grid a.compare-card:hover .tile-arrow{transform:translate(3px,-3px);color:#087f5b}
+}
+.tile-arrow{transition:transform .2s ease,color .2s ease}
+.comparison-grid a.compare-card:active{transform:scale(.97);transition-duration:.08s}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .comparison-grid a.compare-card{opacity:1}
+}
