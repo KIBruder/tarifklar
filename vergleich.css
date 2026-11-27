@@ -348,3 +348,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
   .faq details{padding:17px 0!important}
   .wrap{padding-bottom:24px!important}
 }
+
+/* Kfz page: one clear primary partner action */
+.kfz-page .content{grid-template-columns:minmax(0,850px);justify-content:center}
