@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarifklar-shell-v9";
+const CACHE_NAME = "tarifklar-shell-v10";
 const APP_SHELL = [
   "/",
   "/index.html",
