@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarifklar-shell-v15";
+const CACHE_NAME = "tarifklar-shell-v16";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -15,6 +15,7 @@ const APP_SHELL = [
   "/strom.html",
   "/gas.html",
   "/kfz.html",
+  "/kfz-wechsel-2026.html",
   "/motorrad.html",
   "/reisen.html",
   "/c24bank.html",
