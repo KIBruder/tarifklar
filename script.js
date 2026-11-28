@@ -6,11 +6,14 @@ document.addEventListener('click', (event) => {
   if (!link) return;
   let target;
   try { target = new URL(link.href, location.href); } catch { return; }
-  const partner = target.hostname === 'a.check24.net' ? 'check24' : '';
+  const partner = target.hostname === 'a.check24.net' ? 'check24'
+    : target.hostname === 'a.partner-versicherung.de' ? 'tarifcheck' : '';
   if (!partner) return;
   const path = location.pathname.split('/').pop() || 'index.html';
   const page = path.replace(/\.html?$/i, '').replace(/[^a-z0-9-]/gi, '').slice(0, 60) || 'home';
-  const category = ({'strom':'strom','gas':'gas','reisen':'reisen','c24bank':'c24bank'})[page];
+  const category = ({'strom':'strom','gas':'gas','reisen':'reisen','c24bank':'c24bank','kfz':'kfz'})[page];
+  if (!category) return;
+  if ((category === 'kfz' && partner !== 'tarifcheck') || (category !== 'kfz' && partner !== 'check24')) return;
   if (!category) return;
   const label = (link.getAttribute('aria-label') || link.textContent || 'partner-link')
     .trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'partner-link';
